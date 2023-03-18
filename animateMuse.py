@@ -3,7 +3,7 @@ import numpy as np
 
 class Graph():
     def __init__(self) -> None:
-        self.delta ,self.theta, self.alpha, self.beta, self.gamma, self.ppg_red, self.ppg_ir, self.gsr= 0
+        self.delta ,self.theta, self.alpha, self.beta, self.gamma, self.ppg_red, self.ppg_ir, self.gsr= 0,0,0,0,0,0,0,0
         
         plt.style.use("bmh")
         self.fig, ((self.ax1, self.ax2),(self.ax3, self.ax4)) = plt.subplots(2,2, figsize=(8,6))
@@ -23,7 +23,7 @@ class Graph():
         self.ppg_ir_ax3_y = []
         self.ax4_y = []
 
-    def animate(self,i,eegfile,ppgrawfile):
+    def animate(self,i,eegfile,ppgrawfile, gsrfile):
         #plt.cla()
         self.ax1.clear()
         self.ax2.clear()
@@ -38,6 +38,7 @@ class Graph():
         self.x.append(self.counter)
         self.delta, self.theta, self.alpha, self.beta, self.gamma = self.EEGLastNLines(eegfile, 10)
         self.ppg_red, self.ppg_ir = self.PPGRawLastNLines(ppgrawfile, 10)
+        self.gsr = self.GSRLastNLines(gsrfile, 25)
         #y.append(gsr_data)
         #print("Called read file...")
         #print(f'Delta:{self.delta},Theta:{self.theta}')
@@ -102,18 +103,29 @@ class Graph():
                 np.around(np.mean(np.array(beta))), \
                 np.around(np.mean(np.array(gamma)))
     
-    def PPGRawLastNLines(self,f,n):
+    def GSRLastNLines(self,f,n=25):
         #hr = []
+        gsr = []
+
+        with open(f) as file:
+            for line in (file.readlines()[-n:]):
+                x = line.split(',')
+                gsr.append(float(str(x[2])))
+            #print(np.around(np.mean(np.array(ppg_red))))
+            return np.around(np.mean(np.array(gsr)))
+                
+    def PPGRawLastNLines(self, f, n):
+        # hr = []
         ppg_red = []
         ppg_ir = []
 
         with open(f) as file:
             for line in (file.readlines()[-n:]):
                 x = line.split('\t')
-                ppg_red.append(float(str(x[1]))) 
+                ppg_red.append(float(str(x[1])))
                 ppg_ir.append(float(str(x[2])))
-            #print(np.around(np.mean(np.array(ppg_red))))
-            return np.around(np.mean(np.array(ppg_red))),np.around(np.mean(np.array(ppg_ir)))
+            # print(np.around(np.mean(np.array(ppg_red))))
+            return np.around(np.mean(np.array(ppg_red))), np.around(np.mean(np.array(ppg_ir)))
         
     def PPGLastNLines(self,f,n):
         hr = []

@@ -48,7 +48,7 @@ class GSR_reader():
         dataThread = Thread( target=self.mainloop, args=(
             loggerQueue, operatingVoltage, maxSerial, sleep), daemon=True)
         dataThread.start()
-        time.sleep(100)
+        #time.sleep(100)
     
 
 if __name__ == "__main__":
