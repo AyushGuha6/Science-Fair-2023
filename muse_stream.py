@@ -144,16 +144,18 @@ class MuseStream:
                 psd = DataFilter.get_psd_welch(data_default[eeg_channel], nfft, nfft // 2, sampling_rate, WindowOperations.BLACKMAN_HARRIS.value)
 
                 # calc band power
-                delta = DataFilter.get_band_power(psd, 0, 4.0)
+                delta = DataFilter.get_band_power(psd, 0.5, 4.0)
                 theta = DataFilter.get_band_power(psd, 4, 8.0)
                 alpha = DataFilter.get_band_power(psd, 8.0, 12.0)
                 beta = DataFilter.get_band_power(psd, 12.0, 30.0)
                 gamma = DataFilter.get_band_power(psd, 30.0, 50.0)
-                self.logger("info","Delta:" + str(round(delta,2)).rjust(10,' ') \
-                            + " Theta:" + str(round(theta,2)).rjust(10,' ') \
-                            + " Alpha:" + str(round(alpha,2)).rjust(10,' ') \
-                            + " Beta:" + str(round(beta,2)).rjust(10,' ') \
+                self.logger("info","Delta:" + str(round(delta,2)).rjust(10,' ') 
+                            + " Theta:" + str(round(theta,2)).rjust(10,' ') 
+                            + " Alpha:" + str(round(alpha,2)).rjust(10,' ') 
+                            + " Beta:" + str(round(beta,2)).rjust(10,' ') 
                             + " Gamma:" + str(round(gamma,2)).rjust(10,' ')
+                            + " T/a:" + str(round(theta/alpha, 2)).rjust(10, ' ')
+                            + " T/b:" + str(round(theta/beta, 2)).rjust(10, ' ')
                     )
                 # otherwise, ensure the queue has room in it
                 if not self.EEGQ.full():
