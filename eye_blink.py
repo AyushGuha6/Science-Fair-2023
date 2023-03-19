@@ -9,7 +9,6 @@ from queue import Queue
 import os, datetime, time
 import utils
 #from muse_stream import MuseStream
-
 class DetectEyeBlink():
     def __init__(self, ear_threshold=0.23, eye_ar_consec_frmes=2) -> None:
         # Variables
@@ -32,8 +31,8 @@ class DetectEyeBlink():
 
         self.filedir = "data"     # data directory
         self.file_prefix = 'blink'   # filename qualifier
-        self.filePath = "data/blink"
-        self.filename = self.filedir + '/' + self.file_prefix + '_'\
+        #self.filePath = "data/blink"
+        self.filePath = self.filedir + '/' + self.file_prefix + '_'\
         + str(datetime.date.today()) + "-"\
         + str(datetime.datetime.now().strftime("%H.%M.%S"))\
         + '.csv'
@@ -197,4 +196,5 @@ class DetectEyeBlink():
 if __name__ == '__main__':
     eyeblink = DetectEyeBlink()
     eyeblink.start()
-    time.sleep(30)
+    while True:
+        time.sleep(2147483647 )

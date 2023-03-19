@@ -1,7 +1,3 @@
-import datetime
-import os
-
-
 def file_writer(filepath, queue, debug =  False):
     #filepath = filedir + '/' + filename + '_'\
     #    + str(datetime.date.today()) + "-"\
