@@ -192,9 +192,9 @@ class DetectEyeBlink():
     def start(self):
         self.writer_thread.start() 
         self.blinkT.start()
+        while True: time.sleep(2147483647)
 
 if __name__ == '__main__':
     eyeblink = DetectEyeBlink()
     eyeblink.start()
-    while True:
-        time.sleep(2147483647 )
+    exit()
