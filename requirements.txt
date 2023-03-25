@@ -1,0 +1,14 @@
+opencv-python
+scipy
+imutils
+brainflow
+pyqt6
+pyqtgraph
+
+# dlib installation steps for Windows
+# 1. Clone the repo using git clone https://github.com/davisking/dlib
+# 2. Get inside the directory in cmd using cd dlib
+# 3. Make sure you have visual studio desktop development with c++
+# 4. Install cmake from https://cmake.org/download/
+# 5. Using pip to install cmake py -m pip install cmake
+# 6. Then try installing dlib by py setup.py install
