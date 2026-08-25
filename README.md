@@ -24,5 +24,3 @@ dlib needs a manual build step on Windows rather than a plain `pip install`. See
 Python, OpenCV, dlib, BrainFlow, PyQt6/pyqtgraph, imutils, SciPy
 
 ## Result
-
-*(Add what the sensor-fusion setup actually found here, and what the science fair question and conclusion were.)*
