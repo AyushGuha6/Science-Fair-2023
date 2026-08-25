@@ -4,11 +4,17 @@ from scipy.spatial import distance as dist
 import cv2, imutils
 from imutils.video import VideoStream
 from imutils import face_utils
-from threading import Thread 
+from threading import Thread
 from queue import Queue
 import os, datetime, time
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[1]))
 import utils
-#from muse_stream import MuseStream
+#from sensors.muse_stream import MuseStream
+
+DATA_DIR = Path(__file__).resolve().parents[2] / "data"
+
 class DetectEyeBlink():
     def __init__(self, ear_threshold=0.23, eye_ar_consec_frmes=2) -> None:
         # Variables
@@ -22,14 +28,14 @@ class DetectEyeBlink():
         # and then create the facial landmark predictor
         print("[INFO] loading facial landmark predictor...")
         self.detector = dlib.get_frontal_face_detector()
-        self.predictor = dlib.shape_predictor('data/shape_predictor_68_face_landmarks.dat')
+        self.predictor = dlib.shape_predictor(str(DATA_DIR / 'shape_predictor_68_face_landmarks.dat'))
 
         # grab the indexes of the facial landmarks for the left and
         # right eye, respectively
         (self.lStart, self.lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
         (self.rStart, self.rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 
-        self.filedir = "data"     # data directory
+        self.filedir = str(DATA_DIR)     # data directory
         self.file_prefix = 'blink'   # filename qualifier
         #self.filePath = "data/blink"
         self.filePath = self.filedir + '/' + self.file_prefix + '_'\

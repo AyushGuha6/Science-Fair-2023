@@ -2,8 +2,12 @@ import heartpy as hp
 import matplotlib.pyplot as plt
 import csv
 import numpy as np
+from pathlib import Path
+
+DATA_DIR = Path(__file__).resolve().parents[2] / "data"
+
 # load example data
-with open("ppg_raw.csv") as raw_data:
+with open(DATA_DIR / "ppg_raw.csv") as raw_data:
     data = (np.transpose(np.array((list(csv.reader(raw_data, delimiter='\t')))))[
             1][0:1100]).astype(float)
     print(data)

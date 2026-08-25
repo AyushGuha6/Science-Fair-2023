@@ -11,7 +11,8 @@ import datetime
 import os
 import mne
 from mne.channels import read_layout
-path = "data"
+from pathlib import Path
+path = str(Path(__file__).resolve().parents[2] / "data")
 if not os.path.exists(path):
     os.mkdir(path)
 from threading import Thread

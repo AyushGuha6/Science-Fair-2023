@@ -1,5 +1,8 @@
 import os
 os.environ["BLINKA_MCP2221"] = "1"
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[1]))
 from analogio import AnalogIn
 import hid
 import time
@@ -8,6 +11,8 @@ from queue import Queue
 from threading import Thread
 import utils
 import datetime
+
+DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 # os.environ["BLINKA_MCP2221"] = "1" must be ran before all others
 # do not pip install hid
 
@@ -39,7 +44,7 @@ class GSR_reader():
             time.sleep(sleep)
             
     def start(self, fileName="gsr", operatingVoltage=5.0, maxSerial=512, sleep=0.2, debug=False):
-        self.filename = "data/"+fileName+"_"+str(datetime.date.today())+"-"+str(datetime.datetime.now().strftime("%H.%M.%S"))+".csv"
+        self.filename = str(DATA_DIR / f"{fileName}_{datetime.date.today()}-{datetime.datetime.now().strftime('%H.%M.%S')}.csv")
 
         loggerQueue = Queue(maxsize=1024)
         writerThread = Thread(target=utils.file_writer, args=(self.filename, loggerQueue, debug), daemon=True)

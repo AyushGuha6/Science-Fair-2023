@@ -47,7 +47,7 @@ Custom sensor headband (EEG + PPG) paired with finger-mounted GSR electrodes and
 
 ```bash
 pip install -r requirements.txt
-python3 main.py
+python3 src/main.py
 ```
 
 > `dlib` needs a manual build step on Windows rather than a plain `pip install` — see dlib's own installation instructions if `pip install dlib` fails.

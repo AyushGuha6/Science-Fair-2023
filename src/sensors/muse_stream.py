@@ -1,4 +1,5 @@
 import datetime, time, os
+from pathlib import Path
 from brainflow.board_shim import BoardShim, BrainFlowInputParams, BrainFlowPresets, BoardIds
 from brainflow.data_filter import DataFilter, WindowOperations, DetrendOperations
 from threading import Thread
@@ -7,6 +8,8 @@ import numpy as np
 import heartpy as hp
 import pandas as pd
 from scipy.signal import resample
+
+DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 
 class MuseStream:
     def __init__(self):
@@ -31,7 +34,7 @@ class MuseStream:
         self.streaming = False
         self.eeg_stopped = True
         self.ppg_stopped = True 
-        self.filedir = 'data'
+        self.filedir = str(DATA_DIR)
         self.ppg_header_print = False
         
         #EEG

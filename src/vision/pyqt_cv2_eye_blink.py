@@ -8,8 +8,12 @@ from scipy.spatial import distance as dist
 import cv2, imutils
 from imutils import face_utils
 from threading import Thread
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[1]))
 import utils
 from queue import Queue
+
+DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -41,16 +45,16 @@ class Worker1(QThread):
     print("[INFO] loading facial landmark predictor...")
     
     detector = dlib.get_frontal_face_detector()
-    predictor = dlib.shape_predictor('data/shape_predictor_68_face_landmarks.dat')
+    predictor = dlib.shape_predictor(str(DATA_DIR / 'shape_predictor_68_face_landmarks.dat'))
 
     # grab the indexes of the facial landmarks for the left and
     # right eye, respectively
     (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
     (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 
-    filedir = "data"     # data directory
+    filedir = str(DATA_DIR)     # data directory
     file_prefix = 'blink'   # filename qualifier
-    filePath = "data/blink"
+    filePath = str(DATA_DIR / 'blink')
     filename = filedir + '/' + file_prefix + '_'\
     + str(datetime.date.today()) + "-"\
     + str(datetime.datetime.now().strftime("%H.%M.%S"))\

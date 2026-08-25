@@ -1,6 +1,7 @@
 import sys
 import datetime
 import time
+from pathlib import Path
 # Multithreading for writing to CSV
 from threading import Thread
 from queue import Queue
@@ -17,6 +18,8 @@ import pandas as pd
 from brainflow.board_shim import BoardShim, BrainFlowInputParams, BoardIds, BrainFlowPresets
 from brainflow.data_filter import DataFilter
 from pprint import pprint
+
+DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 
 
 class PpgStream:
@@ -91,7 +94,7 @@ class PpgStream:
                     # print('Data From the Board')
                     print(f'Size of data {data.size}')
                     print(df.head(5))
-                    DataFilter.write_file(data, 'data/ppg_raw.csv', 'a')
+                    DataFilter.write_file(data, str(DATA_DIR / 'ppg_raw.csv'), 'a')
                     # DataFilter.write_file(df, 'data/ppg_tranpose.csv', 'a')
 
                 # print(f'{datetime.datetime.now()} Fetching Data from the Buffer...')

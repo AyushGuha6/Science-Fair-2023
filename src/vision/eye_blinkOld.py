@@ -10,7 +10,12 @@ from queue import Queue
 import os
 import datetime
 import time
-from muse_stream import MuseStream
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+from sensors.muse_stream import MuseStream
+
+DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 
 
 def eye_aspect_ratio(eye):
@@ -73,7 +78,7 @@ def main():
     # and then create the facial landmark predictor
     print("[INFO] loading facial landmark predictor...")
     detector = dlib.get_frontal_face_detector()
-    predictor = dlib.shape_predictor('data/shape_predictor_68_face_landmarks_GTX.dat')
+    predictor = dlib.shape_predictor(str(DATA_DIR / 'shape_predictor_68_face_landmarks_GTX.dat'))
 
     # grab the indexes of the facial landmarks for the left and
     # right eye, respectively
@@ -84,7 +89,7 @@ def main():
     writeQueue = Queue(maxsize=128)
     writeQueue.put('                      TIME, BLINK_CNT,  EAR, TIME_ELP, BLNKRATE\n')
 
-    filedir = "data"     # data directory
+    filedir = str(DATA_DIR)     # data directory
     filename = 'blink'   # filename qualifier
 
     # create and start the file writer thread
