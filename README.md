@@ -35,22 +35,44 @@ Combining all four signals successfully predicted a user's stress-level change, 
 <p>
   <img src="images/device_overview.jpg" alt="Wearable sensor headband, worn" width="320">
   <img src="images/adc_board.jpg" alt="Custom ADC board for sensor signal acquisition" width="320">
+  <img src="images/gsr_sensor.jpg" alt="Finger-mounted GSR sensor" width="320">
 </p>
 
 Custom sensor headband (EEG + PPG) paired with finger-mounted GSR electrodes and a custom ADC board for signal acquisition; eye-blink tracking runs off the built-in webcam.
 
 ## Data
 
-`data/` contains one representative recorded session (EEG, GSR, PPG, and blink-rate logs, each timestamped) from the stress-induction testing referenced above.
+`data/` contains representative recorded session files for EEG, GSR, PPG, raw PPG, and blink-rate measurements. Live runs write new timestamped CSV files into this directory.
+
+The eye-blink detector also requires dlib's `shape_predictor_68_face_landmarks.dat` file. Place that file in `data/` before starting webcam-based blink tracking; it is not included in this repository.
 
 ## Running it
 
+### Hardware and software prerequisites
+
+- Muse 2 headband paired and available to BrainFlow
+- MCP2221-based GSR circuit, connected over USB
+- Working webcam for eye-blink tracking
+- Python 3 and the packages in `requirements.txt`
+- Additional hardware support packages for `board`, `analogio`, and `hid`; these are platform- and device-specific and are not currently listed in `requirements.txt`
+
+Install the listed Python packages from the repository root:
+
 ```bash
 pip install -r requirements.txt
+```
+
+Run the live pipeline from the repository root:
+
+```bash
 python3 src/main.py
 ```
 
-> `dlib` needs a manual build step on Windows rather than a plain `pip install` — see dlib's own installation instructions if `pip install dlib` fails.
+> `src/main.py` currently starts the blink process with the Windows-only `start /wait` command. On macOS or Linux, the launcher needs to be updated to use the platform's Python subprocess invocation before the full pipeline will run.
+
+> `dlib` needs a manual build step on Windows rather than a plain `pip install` — see dlib's own installation instructions if `pip install dlib` fails. On every platform, download `shape_predictor_68_face_landmarks.dat` separately and place it in `data/`.
+
+The checked-in CSV files can be used for inspection without connecting the hardware. The live scripts are hardware-dependent and do not currently provide a simulated-data mode.
 
 ## Built with
 
