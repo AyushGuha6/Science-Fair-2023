@@ -31,7 +31,16 @@ Stress was induced with a cold-pressor test and a mental-arithmetic task. The re
 
 ## Results
 
-During the fair project, heart-rate variability, galvanic skin response, blink rate, and the EEG alpha/theta ratio all changed under induced stress. This repository includes representative recorded sessions in `data/` but not a full statistical analysis, so no numerical effect sizes are claimed here.
+Changes observed under induced stress (cold-pressor test and mental-arithmetic task), as reported in the original project:
+
+| Metric | Change under stress |
+|---|---|
+| Heart-rate variability (SD1) | about +60% (average increase) |
+| Galvanic skin response (GSR) | +4.8% to +7.7% |
+| Blink rate | about −50% to −75% |
+| EEG alpha/theta ratio | median fell from about 3 to about 1 |
+
+Representative recorded sessions are in `data/`. These are the results as originally reported; a full statistical analysis is not included in this repository.
 
 ## Reproduce
 
@@ -60,6 +69,6 @@ requirements.txt
 - The launcher uses the Windows-only `start /wait`; macOS and Linux need a small change.
 - dlib requires a manual build on Windows.
 - There is no simulation mode, so live scripts need the hardware.
-- No full statistical analysis is included, and the number of participants and trials is not documented.
+- A full statistical analysis and the number of participants and trials are not documented in this repository.
 - A reinforcement-learning layer to predict stress is planned, not implemented.
 - A science-fair prototype, not a validated medical device.
